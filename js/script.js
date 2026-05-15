@@ -4,8 +4,8 @@ const countdown = document.getElementById("countdown");
 const envelope = document.getElementById("envelope");
 const text = document.getElementById("text");
 
-const openSound = new Audio("/sound/open.mp3");
-const messageSound = new Audio("/sound/music.mp3");
+const openSound = new Audio("sound/open.mp3");
+const messageSound = new Audio("sound/music.mp3");
 
 const message =
 "No hay que esperar fechas importantes para este tipo de detalles. Esta carta es para decirte que te amo demasiado. Estoy profundamente agradecido con Dios, con la vida y contigo. Gracias por llegar a mi vida y por quedarte conmigo incluso en la distancia. Te amo más de lo que las palabras pueden decir 💕";
@@ -51,7 +51,7 @@ function start() {
     /* MUSICA SUAVE DESDE EL INICIO */
     if (timeLeft == 20) {
 
-        music.volume = 0.25;
+        messageSound.volume = 0.25;
 
         music.play();
     }
@@ -88,6 +88,20 @@ function start() {
 
     timeLeft--;
 }
+
+function unlockAudio() {
+    openSound.play().then(() => {
+        openSound.pause();
+        openSound.currentTime = 0;
+    }).catch(()=>{});
+
+    messageSound.play().then(() => {
+        messageSound.pause();
+        messageSound.currentTime = 0;
+    }).catch(()=>{});
+}
+
+document.addEventListener("click", unlockAudio, { once: true });
 
 /* INICIAR */
 let timer = setInterval(start, 1000);
